@@ -63,6 +63,9 @@
 [data-hand] {
   --font-display: var(--latin-display), var(--zh), var(--ja), "Kaiti SC", "KaiTi", "STKaiti", "Chalkboard SE", cursive;
   --font-hand:    var(--latin-body), var(--zh), var(--ja), "Kaiti SC", "KaiTi", "STKaiti", "Segoe Print", cursive;
+  /* font-family resolves var() where it's declared, so body's value would be
+     inherited already fixed to body's hand. Restate it on each data-hand. */
+  font-family: var(--font-hand);
   font-variation-settings: var(--hand-vary, normal);
   font-weight: var(--hand-body-weight, 400);
 }

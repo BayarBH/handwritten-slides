@@ -6,7 +6,7 @@
 
 CJK を最優先に設計しています。このスタイルで難しいのはラテン文字ではありません。中国語と日本語を英語と同じ筆致にそろえ、こっそりシステムのゴシック体に逃げさせないことです。
 
-![表紙](docs/img/cover.png)
+![表紙](docs/img/cover-ja.png)
 
 ビルドシステムも依存関係もフレームワークもありません。すべての線はバニラ JS が描き、約 90 行の Python スクリプトがそれを 1 つのファイルにインライン化します。
 
@@ -49,19 +49,19 @@ python3 scripts/build.py demo/slides.html -o deck.html \
 
 矢印は自分で要素の端を見つけるので、座標を書く必要はありません。
 
-![フロー図](docs/img/diagram.png)
+![フロー図](docs/img/diagram-ja.png)
 
 `box` `circle` `underline` `strike` `highlight` `cloud` `bracket` `check` `cross` `arrow` `bars` `plot`：全カタログとコピペ用のマークアップは [references/components.md](references/components.md) にあります。
 
 グラフはあえて大まかにしています。示すのは形であって読み取り値ではありません。正確な数値はテキストとしてスライドに書いてください。
 
-![棒グラフ](docs/img/chart.png)
+![棒グラフ](docs/img/chart-ja.png)
 
 ---
 
 ## 4 種類の手書き
 
-![4 種類の手書きの比較](docs/img/hands.png)
+![4 種類の手書きの比較](docs/img/hands-ja.png)
 
 | `--hand` | ラテン文字 | 中国語 | 日本語 | 用途 |
 |---|---|---|---|---|
@@ -88,7 +88,7 @@ python3 scripts/build.py demo/slides.html -o deck.html \
 
 ## テーマと紙
 
-![付箋](docs/img/sticky.png)
+![付箋](docs/img/sticky-ja.png)
 
 付箋は黄色、`.cream`、`.mint`、`.blue`、`.pink` があります。アイボリーは控えめな選択肢です。デフォルトの紙の上では地色とのコントラストが 1.02 しかなく、色では区別できません。そのため 2 層の影、つまりぴったり接した影と柔らかい環境光の影だけで見分けられるようにしています。白い紙の上に置いた白いメモ用紙と同じです。
 
@@ -116,7 +116,7 @@ python3 scripts/build.py demo/slides.html -o deck.html \
 - ハイライトは 1 枚につき 1 回だけ。
 - 続くスライドの形に変化をつける：タイトル → 付箋 3 枚 → 図 1 つ → 大きな数字 1 つ → 比較。
 
-![比較スライド](docs/img/compare.png)
+![比較スライド](docs/img/compare-ja.png)
 
 ---
 

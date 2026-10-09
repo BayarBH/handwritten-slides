@@ -6,7 +6,7 @@ Presentation decks that look drawn on paper — wobbly ink outlines, marker high
 
 Built for CJK first. The hard part of this style isn't the Latin; it's keeping Chinese and Japanese in the same voice as the English instead of quietly falling back to a system sans.
 
-![Cover slide](docs/img/cover.png)
+![Cover slide](docs/img/cover-en.png)
 
 No build system, no dependencies, no framework. Vanilla JS draws every stroke; a ~90-line Python script inlines it into one file.
 
@@ -49,19 +49,19 @@ Add `data-sketch` to any element and a hand-drawn shape is fitted to it after th
 
 Arrows find their own edges, so nothing needs coordinates.
 
-![Flow diagram](docs/img/diagram.png)
+![Flow diagram](docs/img/diagram-en.png)
 
 `box` `circle` `underline` `strike` `highlight` `cloud` `bracket` `check` `cross` `arrow` `bars` `plot` — the full catalogue with copy-paste markup is in [references/components.md](references/components.md).
 
 Charts are deliberately approximate. They show shape, not readings; put exact numbers on the slide as text.
 
-![Bar chart](docs/img/chart.png)
+![Bar chart](docs/img/chart-en.png)
 
 ---
 
 ## The four hands
 
-![Four hands compared](docs/img/hands.png)
+![Four hands compared](docs/img/hands-en.png)
 
 | `--hand` | Latin | Chinese | Japanese | For |
 |---|---|---|---|---|
@@ -88,7 +88,7 @@ Japanese decks need `--lang ja`: Klee One and the Chinese faces disagree on shar
 
 ## Themes and paper
 
-![Sticky notes](docs/img/sticky.png)
+![Sticky notes](docs/img/sticky-en.png)
 
 Sticky notes come in yellow, `.cream`, `.mint`, `.blue`, `.pink`. The ivory one is the quiet option: on the default paper it sits at 1.02 contrast from the ground, so no colour separation is possible and it's read entirely through a two-layer shadow — a tight contact shadow plus a soft ambient one — the way a white memo sheet on white paper is.
 
@@ -116,7 +116,7 @@ The style collapses under density — a wall of text in a handwriting face is ha
 - Spend the highlight once per slide.
 - Vary the shape of consecutive slides: title → three stickies → one diagram → one big number → a comparison.
 
-![Comparison slide](docs/img/compare.png)
+![Comparison slide](docs/img/compare-en.png)
 
 ---
 
