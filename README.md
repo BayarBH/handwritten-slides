@@ -6,7 +6,7 @@ Presentation decks that look drawn on paper — wobbly ink outlines, marker high
 
 Built for CJK first. The hard part of this style isn't the Latin; it's keeping Chinese and Japanese in the same voice as the English instead of quietly falling back to a system sans.
 
-![Cover slide](docs/img/cover-en.png)
+![Flipping through a deck](docs/img/demo-en.gif)
 
 No build system, no framework. Vanilla JS draws every stroke; one stdlib-only Python script inlines it into one file.
 
