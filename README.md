@@ -1,5 +1,7 @@
 # handwritten-slides
 
+**English** · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
+
 Presentation decks that look drawn on paper — wobbly ink outlines, marker highlights, sticky notes, sketched charts. One self-contained HTML file: present in the browser, print to PDF, mail it to someone.
 
 Built for CJK first. The hard part of this style isn't the Latin; it's keeping Chinese and Japanese in the same voice as the English instead of quietly falling back to a system sans.
