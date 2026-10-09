@@ -1,0 +1,309 @@
+/* sketch.css — notebook palette, handwriting type, slide layout, print. */
+
+:root {
+  /* Ink & pens — a desk drawer, not a brand palette */
+  --paper:        #FAFAF4;
+  --paper-edge:   #EFEEE4;
+  --grid:         #DAE3E9;
+  --ink:          #1E2A35;
+  --pencil:       #8B98A3;
+  --pen-red:      #C8443C;
+  --pen-blue:     #2C6FAF;
+  --pen-green:    #3E8B6B;
+  --accent:       var(--pen-red);
+  --wash-yellow:  #FBE39B;
+  --wash-mint:    #BEE3D2;
+  --wash-blue:    #C2D9F0;
+  --wash-pink:    #F3C9CD;
+  --sticky-cream: #FFFDF6;
+
+  /* Type comes from the --hand preset below, not from here. */
+  --scale: 1;
+}
+
+
+
+/* ---------- hands ----------
+   A hand is four slots: a Latin face, a Chinese face, a Japanese face, and how
+   hard to push Shantell Sans's Informality/Bounce axes. The slots are composed
+   into a stack below, so the script order can change without restating fonts. */
+
+[data-hand="marker"] {
+  --latin-display: "Shantell Sans"; --latin-body: "Shantell Sans";
+  --zh: "hongleixingshu"; --ja: "Yusei Magic";
+  --hand-vary: "INFM" 100, "BNCE" 12;
+  --hand-display-weight: 700; --hand-body-weight: 400;
+}
+[data-hand="pen"] {
+  --latin-display: "Shantell Sans"; --latin-body: "Shantell Sans";
+  --zh: "瑞美加张清平硬笔行书"; --ja: "Zen Kurenaido";
+  --hand-vary: "INFM" 45, "BNCE" 0;
+  /* Both CJK faces here are light hands. Leaving Shantell at its usual weight
+     beside them is what makes a deck read "English drawn, Chinese typeset" —
+     the mismatch registers as a quality gap even though both are handwriting.
+     Pull the Latin down to meet them. */
+  --hand-display-weight: 500; --hand-body-weight: 300;
+}
+[data-hand="scrawl"] {
+  --latin-display: "Shantell Sans"; --latin-body: "Shantell Sans";
+  --zh: "qiantubifengshouxieti"; --ja: "Yuji Boku";
+  --hand-vary: "INFM" 100, "BNCE" 45, "SPAC" 5;
+  --hand-display-weight: 800; --hand-body-weight: 500;
+}
+[data-hand="tidy"] {
+  --latin-display: "Caveat"; --latin-body: "Kalam";
+  --zh: "LXGW WenKai Screen"; --ja: "Klee One";
+  --hand-vary: normal;
+  --hand-display-weight: 700; --hand-body-weight: 400;
+}
+
+/* Composed here rather than inside each hand, and re-resolved on every element
+   carrying data-hand so one deck can show several hands side by side.
+   Declaring it only on body would make descendants inherit a resolved value. */
+[data-hand] {
+  --font-display: var(--latin-display), var(--zh), var(--ja), "Kaiti SC", "KaiTi", "STKaiti", "Chalkboard SE", cursive;
+  --font-hand:    var(--latin-body), var(--zh), var(--ja), "Kaiti SC", "KaiTi", "STKaiti", "Segoe Print", cursive;
+  font-variation-settings: var(--hand-vary, normal);
+  font-weight: var(--hand-body-weight, 400);
+}
+
+/* Japanese decks put the Japanese face ahead of the Chinese one. The two
+   disagree on shared codepoints — 直 骨 每 follow different drawing
+   conventions — and whichever comes first takes every character both cover. */
+body[data-lang="ja"] [data-hand],
+body[data-lang="ja"][data-hand] {
+  --font-display: var(--latin-display), var(--ja), var(--zh), "Hiragino Maru Gothic ProN", "Yu Mincho", cursive;
+  --font-hand:    var(--latin-body), var(--ja), var(--zh), "Hiragino Maru Gothic ProN", "Yu Mincho", cursive;
+}
+
+:root { --font-mono: "Courier Prime", "LXGW WenKai Screen", ui-monospace, monospace; }
+
+/* Cream — warm paper rather than white. Every value below was checked against
+   the background it actually sits on, not picked to look nice in isolation: a
+   warm ground swallows cool inks, so the pens are re-mixed warm and the washes
+   re-saturated. Pencil is #736A56 because the obvious lighter grey lands at
+   4.07 contrast, under the 4.5 floor, and goes muddy under a projector. */
+body[data-theme="cream"] {
+  --sticky-cream: #FEFCF5;
+  --paper: #F7F0DE; --paper-edge: #E8DFC6; --grid: #E3D9BE;
+  --ink: #2B2519; --pencil: #736A56;
+  --pen-red: #B8402F; --pen-blue: #2A5F94; --pen-green: #3B7A55;
+  --wash-yellow: #F2D486; --wash-mint: #AFD8BE; --wash-blue: #B4CDE6; --wash-pink: #EDBFBC;
+}
+
+/* Cream is already a warm, textured-looking ground — the full noise overlay
+   reads as grubby rather than as paper fibre. */
+body[data-theme="cream"] .slide::after { opacity: .028; }
+
+/* Chalkboard variant — same geometry, different instrument. */
+body[data-theme="board"] {
+  --sticky-cream: #F2EEE0;
+  --paper: #23332C; --paper-edge: #1B2822; --grid: #33463D;
+  --ink: #F1EFE3; --pencil: #9FB0A4;
+  --pen-red: #F09A8C; --pen-blue: #93C4E8; --pen-green: #A8D9AE;
+  --wash-yellow: #6A6234; --wash-mint: #37564A; --wash-blue: #2F4A63; --wash-pink: #5E3B41;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0; height: 100%;
+  background: var(--paper-edge);
+  font-family: var(--font-hand);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+.deck { position: fixed; inset: 0; display: grid; place-items: center; overflow: hidden; }
+
+.slide {
+  position: absolute;
+  width: 1280px; height: 720px;
+  transform: scale(var(--scale));
+  transform-origin: center center;
+  background: var(--paper);
+  box-shadow: 0 10px 40px rgba(20, 30, 40, .18);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .18s ease;
+  overflow: hidden;
+}
+.slide.active { opacity: 1; visibility: visible; pointer-events: auto; }
+
+/* Paper: faint graph grid + a whisper of fibre noise. */
+.slide::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px;
+  opacity: .5;
+}
+body[data-paper="dot"] .slide::before {
+  background-image: radial-gradient(var(--grid) 1.4px, transparent 1.4px);
+  background-size: 26px 26px; opacity: .75;
+}
+body[data-paper="plain"] .slide::before { display: none; }
+.slide::after {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  opacity: .045; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.stage { position: relative; width: 100%; height: 100%; padding: 56px 72px; z-index: 1; }
+
+/* One character per box, so each can be nudged independently. Chinese fonts
+   have no rlig alternates — 6763 glyphs x3 is not a thing anyone has drawn —
+   so the variation that makes handwriting look handwritten is added here
+   instead. Seeded per character AND per position, so repeats differ. */
+.jt { display: inline-block; }
+.stage > *:not(.sketch-layer) { position: relative; z-index: 2; }
+
+.sketch-layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.sketch-layer.behind { z-index: 1; }
+.sketch-layer.front  { z-index: 4; }
+.sk-num   { font-family: var(--font-display); font-size: 24px; fill: var(--ink); }
+.sk-label { font-family: var(--font-hand); font-size: 17px; fill: var(--pencil); }
+
+/* ---------- type ---------- */
+h1, h2, h3, .eyebrow, .big {
+  font-family: var(--font-display);
+  font-weight: var(--hand-display-weight, 700);
+  margin: 0;
+}
+h1 { font-size: 76px; line-height: 1.06; letter-spacing: .5px; }
+h2 { font-size: 50px; line-height: 1.12; }
+h3 { font-size: 32px; line-height: 1.2; }
+.big { font-size: 108px; line-height: 1; }
+p, li { font-size: 26px; line-height: 1.55; margin: 0 0 14px; }
+.lead { font-size: 31px; line-height: 1.5; }
+.small { font-size: 21px; }
+.eyebrow {
+  font-size: 22px; color: var(--pencil); letter-spacing: 2px;
+  text-transform: uppercase; margin-bottom: 10px; font-weight: 400;
+}
+.pencil { color: var(--pencil); }
+.red { color: var(--pen-red); } .blue { color: var(--pen-blue); } .green { color: var(--pen-green); }
+code, .mono { font-family: var(--font-mono); font-size: .9em; }
+
+/* A note scribbled in the margin, slightly off-axis. */
+.note {
+  font-size: 20px; color: var(--pencil); line-height: 1.4;
+  transform: rotate(-1.6deg); display: inline-block; max-width: 260px;
+}
+
+/* ---------- lists ---------- */
+ul.bullets { list-style: none; padding: 0; margin: 0; }
+ul.bullets > li { position: relative; padding-left: 34px; margin-bottom: 18px; }
+ul.bullets > li::before {
+  content: ""; position: absolute; left: 2px; top: .55em;
+  width: 12px; height: 12px; border: 2.5px solid var(--accent);
+  border-radius: 40% 55% 45% 60%; transform: rotate(-14deg);
+}
+ul.bullets.arrow > li::before {
+  content: "→"; border: 0; width: auto; height: auto; top: 0;
+  font-family: var(--font-display); font-size: 28px; color: var(--accent); transform: rotate(-3deg);
+}
+ol.steps { list-style: none; counter-reset: s; padding: 0; margin: 0; }
+ol.steps > li { counter-increment: s; position: relative; padding-left: 52px; margin-bottom: 20px; }
+ol.steps > li::before {
+  content: counter(s); position: absolute; left: 0; top: -2px;
+  width: 36px; height: 36px; display: grid; place-items: center;
+  font-family: var(--font-display); font-size: 24px; color: var(--accent);
+  border: 2.5px solid var(--accent); border-radius: 48% 52% 46% 54%; transform: rotate(-6deg);
+}
+
+/* ---------- layout ---------- */
+.row   { display: flex; gap: 32px; align-items: flex-start; }
+.row.center { align-items: center; }
+.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.fill  { flex: 1; }
+.center-all { display: grid; place-items: center; height: 100%; text-align: center; }
+.bottom { position: absolute; left: 72px; right: 72px; bottom: 48px; }
+.spread { display: flex; justify-content: space-between; align-items: baseline; }
+
+.card { padding: 26px 28px; }
+.card h3 { margin-bottom: 10px; }
+.card p:last-child, .card ul:last-child { margin-bottom: 0; }
+
+/* A sticky note is real paper: colour, tilt, and a shadow that sells the lift. */
+.sticky {
+  padding: 24px 24px 28px; width: 100%;
+  background: var(--wash-yellow);
+  box-shadow: 3px 5px 12px rgba(20, 30, 40, .16);
+  transform: rotate(-1.4deg);
+  font-size: 24px; line-height: 1.45;
+}
+/* Ivory. On the default paper this sits 1.02 contrast from the ground — no
+   colour separation is possible, so the note is read entirely through its
+   shadow, the way a white memo sheet on white paper is. Two layers: a tight
+   contact shadow where the paper touches, and a soft ambient one for the lift.
+   The inset hairline gives the cut edge something to catch. */
+.sticky.cream {
+  background: var(--sticky-cream);
+  box-shadow:
+    0 1px 2px rgba(90, 74, 42, .20),
+    4px 7px 16px rgba(90, 74, 42, .13),
+    inset 0 0 0 1px rgba(150, 130, 90, .11);
+}
+body[data-theme="board"] .sticky.cream {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .38), 5px 9px 22px rgba(0, 0, 0, .3);
+}
+.sticky.mint { background: var(--wash-mint); }
+.sticky.blue { background: var(--wash-blue); }
+.sticky.pink { background: var(--wash-pink); }
+.sticky:nth-child(2n) { transform: rotate(1.7deg); }
+.sticky:nth-child(3n) { transform: rotate(-.7deg); }
+.sticky h3 { font-size: 27px; margin-bottom: 8px; }
+
+/* Washi tape, for pinning things down. */
+.tape {
+  position: absolute; width: 108px; height: 30px;
+  background: rgba(210, 200, 160, .5);
+  border-left: 2px dashed rgba(255,255,255,.5); border-right: 2px dashed rgba(255,255,255,.5);
+  transform: rotate(-6deg); top: -14px; left: 50%; margin-left: -54px; z-index: 3;
+}
+
+blockquote.q { margin: 0; position: relative; padding-left: 56px; }
+blockquote.q::before {
+  content: "\201C"; position: absolute; left: 0; top: -18px;
+  font-family: var(--font-display); font-size: 110px; color: var(--accent); opacity: .55;
+}
+
+/* Progressive reveal */
+[data-step] { opacity: 0; transition: opacity .25s ease; }
+[data-step].revealed { opacity: 1; }
+
+.deck-counter {
+  position: fixed; right: 18px; bottom: 14px; z-index: 20;
+  font-family: var(--font-display); font-size: 20px; color: var(--pencil); opacity: .8;
+}
+
+/* ---------- overview (press o) ---------- */
+body.overview .deck {
+  position: static; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 22px; padding: 26px; overflow: auto; height: 100%; place-items: start;
+}
+body.overview .slide {
+  position: static; opacity: 1; visibility: visible; pointer-events: auto;
+  transform: none; zoom: .235; cursor: pointer;
+}
+body.overview .deck-counter { display: none; }
+
+/* ---------- print / PDF ---------- */
+@page { size: 1280px 720px; margin: 0; }
+@media print {
+  html, body { height: auto; background: #fff; }
+  .deck { position: static; display: block; overflow: visible; }
+  .slide {
+    position: static; opacity: 1; visibility: visible; transform: none;
+    box-shadow: none; break-after: page; page-break-after: always;
+  }
+  .deck-counter { display: none; }
+  [data-step] { opacity: 1 !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide, [data-step] { transition: none; }
+}

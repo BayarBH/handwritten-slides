@@ -1,0 +1,14 @@
+# Built decks. Anything produced with --embed-cjk carries font binaries inside
+# it, and redistributing those is a separate right from using the font — see
+# FONTS.md. Build locally; don't commit the result.
+demo/*-deck.html
+demo/deck.html
+*.pdf
+
+# Packaged skill bundle — rebuild with skill-creator rather than tracking it
+*.skill
+
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store

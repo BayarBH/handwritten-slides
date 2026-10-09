@@ -1,0 +1,216 @@
+<!-- 1 · 封面 -->
+<section class="slide">
+  <div class="stage center-all">
+    <div>
+      <p class="eyebrow">handwritten-slides</p>
+      <h1>把想法 <span data-sketch="highlight">画</span> 出来</h1>
+      <p class="lead pencil" style="margin-top:18px">一个手写风格 slide 的生成器 · 单文件 HTML</p>
+      <p class="small pencil" style="margin-top:40px">← → 翻页　f 全屏　o 总览　⌘P 导出 PDF</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · 为什么 -->
+<section class="slide">
+  <div class="stage">
+    <h2>为什么手写风格</h2>
+    <div class="cols-3" style="margin-top:52px">
+      <div class="sticky cream">
+        <h3>逼你想清楚</h3>
+        <p>画不出来的关系，通常是还没想明白的关系。</p>
+      </div>
+      <div class="sticky cream">
+        <h3>密度天然受限</h3>
+        <p>手写字体撑不住八条要点，于是你只能留一条。</p>
+      </div>
+      <div class="sticky cream">
+        <h3>看得出是人做的</h3>
+        <p>不完美会留下痕迹，痕迹会被记住。</p>
+      </div>
+    </div>
+    <p class="note" style="margin-top:44px">乳白便签靠阴影分层，<br>不靠颜色。</p>
+  </div>
+</section>
+
+<!-- 3 · 文字标注 -->
+<section class="slide">
+  <div class="stage">
+    <h2>文字上的笔迹</h2>
+    <div class="cols-2" style="margin-top:46px">
+      <div>
+        <p>荧光笔只用在 <span data-sketch="highlight">一页一处</span>。</p>
+        <p>下划线适合 <span data-sketch="underline" data-sketch-color="blue">补一句</span>。</p>
+        <p>圈出来的通常是 <span data-sketch="circle" data-sketch-color="red">数字</span>。</p>
+        <p><span data-sketch="strike" data-sketch-color="pencil">划掉的旧结论</span> 也是内容。</p>
+      </div>
+      <div>
+        <p style="margin-bottom:34px"><span data-sketch="cloud" data-sketch-color="blue">还没验证的部分</span></p>
+        <div style="display:inline-block" data-sketch="bracket" data-sketch-side="left">
+          <p class="small" style="margin:0">这三条<br>说的是同一件事</p>
+        </div>
+        <p style="margin-top:40px">
+          <span style="display:inline-block;width:28px;height:28px;vertical-align:-6px" data-sketch="check" data-sketch-color="green"></span>
+          能读懂　
+          <span style="display:inline-block;width:28px;height:28px;vertical-align:-6px" data-sketch="cross" data-sketch-color="red"></span>
+          读不懂
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · 图形 -->
+<section class="slide">
+  <div class="stage">
+    <h2>盒子与填充</h2>
+    <div class="cols-3" style="margin-top:52px">
+      <div class="card" data-sketch="box">
+        <h3>纯描边</h3>
+        <p class="small">角会画过头，像手画的那样。</p>
+      </div>
+      <div class="card" data-sketch="box" data-sketch-fill="yellow" data-sketch-color="red">
+        <h3>斜线填充</h3>
+        <p class="small">填充是笔触，不是色块。</p>
+      </div>
+      <div class="card" data-sketch="box" data-sketch-fill="mint" data-sketch-sharp>
+        <h3>直角</h3>
+        <p class="small">加 data-sketch-sharp。</p>
+      </div>
+    </div>
+    <p class="pencil" style="margin-top:56px;font-size:23px">抖动由元素本身生成种子 —— 缩放、翻页、打印都不会重抖。</p>
+  </div>
+</section>
+
+<!-- 5 · 流程图 -->
+<section class="slide">
+  <div class="stage">
+    <h2>关系要画出来</h2>
+    <div class="row center" style="margin-top:86px;justify-content:center">
+      <div id="n1" class="card" style="width:210px;text-align:center" data-sketch="box">原始试题</div>
+      <div style="width:78px"></div>
+      <div id="n2" class="card" style="width:210px;text-align:center" data-sketch="box" data-sketch-fill="yellow">结构化解析</div>
+      <div style="width:78px"></div>
+      <div id="n3" class="card" style="width:210px;text-align:center" data-sketch="box">题库</div>
+    </div>
+    <div data-sketch="arrow" data-from="#n1" data-to="#n2"></div>
+    <div data-sketch="arrow" data-from="#n2" data-to="#n3"></div>
+
+    <div id="n4" class="card" style="width:230px;text-align:center;margin:110px auto 0" data-sketch="box" data-sketch-color="red">人工抽检</div>
+    <div data-sketch="arrow" data-from="#n4" data-to="#n2" data-bend="0.2" data-sketch-color="red"></div>
+    <p class="note" style="position:absolute;right:78px;bottom:70px">箭头自己找边缘，<br>不用算坐标。</p>
+  </div>
+</section>
+
+<!-- 6 · 柱状图 -->
+<section class="slide">
+  <div class="stage">
+    <h2>柱状图</h2>
+    <p class="pencil" style="margin-top:6px">两到六个量，比一句话管用。</p>
+    <div style="height:330px;margin-top:24px" data-sketch="bars"
+         data-values="18,44,62,71"
+         data-labels="2023,2024,2025,2026"
+         data-fills="pencil,pencil,yellow,mint"
+         data-suffix="%"></div>
+    <p class="small pencil" style="margin-top:10px">示意数据 · 精确读数请直接写在页面上</p>
+  </div>
+</section>
+
+<!-- 7 · 折线图 -->
+<section class="slide">
+  <div class="stage">
+    <h2>折线图</h2>
+    <p class="pencil" style="margin-top:6px">
+      <span class="red">红</span> = 手绘版　<span class="pencil">灰</span> = 模板版　（页面停留秒数）
+    </p>
+    <div style="height:340px;margin-top:20px" data-sketch="plot"
+         data-values="12,15,14,22,31,38;11,12,11,13,12,14"
+         data-labels="1周,2周,3周,4周,5周,6周"
+         data-colors="red,pencil"></div>
+  </div>
+</section>
+
+<!-- 8 · 对比 -->
+<section class="slide">
+  <div class="stage">
+    <h2>两种做法</h2>
+    <div class="cols-2" style="margin-top:48px">
+      <div class="card" data-sketch="box" data-sketch-color="pencil">
+        <h3 class="pencil">模板化</h3>
+        <ul class="bullets">
+          <li>三十秒做完</li>
+          <li>八条要点</li>
+          <li>看过就忘</li>
+        </ul>
+      </div>
+      <div class="card" data-sketch="box" data-sketch-color="red" data-sketch-fill="yellow">
+        <h3>手绘</h3>
+        <ul class="bullets arrow">
+          <li>先想清楚再落笔</li>
+          <li>一页一件事</li>
+          <li>记得住</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · 大数字 -->
+<section class="slide">
+  <div class="stage center-all">
+    <div>
+      <p class="big" data-sketch="underline" data-sketch-color="red">30</p>
+      <p class="lead" style="margin-top:20px">一页正文的词数上限</p>
+      <p class="small pencil" style="margin-top:14px">超过就拆页 —— 这条比任何字体都重要</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · 逐步展开 -->
+<section class="slide">
+  <div class="stage">
+    <h2>需要分步时</h2>
+    <ol class="steps" style="margin-top:52px;max-width:820px">
+      <li data-step>写 <code>slides.html</code>，只放 section</li>
+      <li data-step>跑 <code>build.py</code>，注入引擎和字体</li>
+      <li data-step>浏览器打开 <code>deck.html</code>，直接讲</li>
+      <li data-step>⌘P 存成 PDF，发出去</li>
+    </ol>
+    <p class="note" style="margin-top:40px">加 data-step，<br>按一次出一条。</p>
+  </div>
+</section>
+
+<!-- 11 · 引用 -->
+<section class="slide">
+  <div class="stage center-all">
+    <blockquote class="q" style="max-width:880px;text-align:left">
+      <p class="lead">一张图真正的价值，在于它逼你先把话想清楚。</p>
+      <p class="small pencil" style="margin-top:20px">— 凌晨三点删掉第七版的自己</p>
+    </blockquote>
+  </div>
+</section>
+
+<!-- 12 · 收尾 -->
+<section class="slide">
+  <div class="stage">
+    <h2>怎么用</h2>
+    <div class="cols-2" style="margin-top:44px">
+      <div>
+        <p class="mono small" style="line-height:1.9;background:rgba(0,0,0,.03);padding:18px 20px">
+          python3 scripts/build.py \<br>
+          &nbsp;&nbsp;slides.html -o deck.html \<br>
+          &nbsp;&nbsp;--title "标题" --lang zh \<br>
+          &nbsp;&nbsp;--paper grid --rough 2
+        </p>
+      </div>
+      <div>
+        <ul class="bullets">
+          <li><code>--lang</code> 决定中日字形谁优先</li>
+          <li><code>--paper</code> grid / dot / plain</li>
+          <li><code>--theme board</code> 换成黑板</li>
+          <li><code>--rough</code> 1 工整 → 3 潦草</li>
+        </ul>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:46px">直接说 <span data-sketch="highlight" data-sketch-fill="mint">「做一份手写风格的 slide」</span> 就行。</p>
+  </div>
+</section>
