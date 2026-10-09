@@ -8,7 +8,7 @@ CJK を最優先に設計しています。このスタイルで難しいのは�
 
 ![表紙](docs/img/cover-ja.png)
 
-ビルドシステムも依存関係もフレームワークもありません。すべての線はバニラ JS が描き、約 90 行の Python スクリプトがそれを 1 つのファイルにインライン化します。
+ビルドシステムもフレームワークもありません。すべての線はバニラ JS が描き、標準ライブラリだけの Python スクリプトがそれを 1 つのファイルにインライン化します。
 
 ---
 
@@ -18,10 +18,24 @@ CJK を最優先に設計しています。このスタイルで難しいのは�
 git clone https://github.com/BayarBH/handwritten-slides
 cd handwritten-slides
 
-# write a fragment of <section class="slide"> blocks, then:
-python3 scripts/build.py demo/slides.html -o deck.html \
-    --title "My deck" --lang zh --hand marker --embed-cjk
+python3 scripts/build.py demo/ja-slides.html -o deck.html \
+    --title "私のデッキ" --lang ja --all-fonts
 ```
+
+`--all-fonts` は、このデモが 1 枚で手書きセットを比較しているためだけに付けています。
+
+自分のデッキは `<section class="slide">` の断片だけで書けます。`<html>` もスタイルも要りません：
+
+```html
+<section class="slide">
+  <div class="stage">
+    <h2>一枚に一つの主張</h2>
+    <p>強調は <span data-sketch="highlight">一箇所だけ</span>。</p>
+  </div>
+</section>
+```
+
+フォントは Google Fonts と jsDelivr から読み込むので、開くときはネット接続が必要です。完全にオフラインのファイルにするなら `--embed-cjk` を付けます。`pip install fonttools` と Node の `npm` が必要で、成果物を共有する前に [FONTS.md](FONTS.md) を読んでください。
 
 `deck.html` を開きます。`←` `→` でページ送り、`f` で全画面、`o` で一覧グリッド、`⌘P` で PDF 書き出し（スライド 1 枚につき横向き 1 ページ）。
 

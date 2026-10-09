@@ -74,7 +74,8 @@ def split_scripts(chars):
 
 def fetch(pkg, workdir):
     """npm pack into workdir and return the unpacked package root."""
-    out = subprocess.run(["npm", "pack", pkg, "--silent"], cwd=workdir,
+    # which() resolves npm.cmd on Windows; a bare "npm" only finds an .exe there
+    out = subprocess.run([shutil.which("npm") or "npm", "pack", pkg, "--silent"], cwd=workdir,
                          capture_output=True, text=True)
     tgz = sorted(glob.glob(os.path.join(workdir, "*.tgz")))
     if not tgz:

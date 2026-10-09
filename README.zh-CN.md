@@ -8,7 +8,7 @@
 
 ![封面](docs/img/cover.png)
 
-没有构建系统，没有依赖，没有框架。每一笔都由原生 JS 绘制；一个约 90 行的 Python 脚本把它们内联成单个文件。
+没有构建系统，没有框架。每一笔都由原生 JS 绘制；一个只用标准库的 Python 脚本把它们内联成单个文件。
 
 ---
 
@@ -18,10 +18,22 @@
 git clone https://github.com/BayarBH/handwritten-slides
 cd handwritten-slides
 
-# write a fragment of <section class="slide"> blocks, then:
 python3 scripts/build.py demo/slides.html -o deck.html \
-    --title "My deck" --lang zh --hand marker --embed-cjk
+    --title "我的 deck" --lang zh
 ```
+
+你自己的 deck 只需要一段 `<section class="slide">` 片段，不用写 `<html>`，也不用写样式：
+
+```html
+<section class="slide">
+  <div class="stage">
+    <h2>一页只讲一件事</h2>
+    <p>荧光笔 <span data-sketch="highlight">一页只用一次</span>。</p>
+  </div>
+</section>
+```
+
+字体从 Google Fonts 和 jsDelivr 加载，打开 deck 时需要联网。要完全离线的文件就加 `--embed-cjk`，它需要 `pip install fonttools` 和 Node 的 `npm`；分享成品之前请先读 [FONTS.md](FONTS.md)。
 
 打开 `deck.html`。`←` `→` 翻页，`f` 全屏，`o` 总览网格，`⌘P` 导出 PDF（每张 slide 一页横向）。
 

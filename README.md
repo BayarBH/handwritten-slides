@@ -8,7 +8,7 @@ Built for CJK first. The hard part of this style isn't the Latin; it's keeping C
 
 ![Cover slide](docs/img/cover-en.png)
 
-No build system, no dependencies, no framework. Vanilla JS draws every stroke; a ~90-line Python script inlines it into one file.
+No build system, no framework. Vanilla JS draws every stroke; one stdlib-only Python script inlines it into one file.
 
 ---
 
@@ -18,10 +18,24 @@ No build system, no dependencies, no framework. Vanilla JS draws every stroke; a
 git clone https://github.com/BayarBH/handwritten-slides
 cd handwritten-slides
 
-# write a fragment of <section class="slide"> blocks, then:
-python3 scripts/build.py demo/slides.html -o deck.html \
-    --title "My deck" --lang zh --hand marker --embed-cjk
+python3 scripts/build.py demo/en-slides.html -o deck.html \
+    --title "My deck" --lang en --all-fonts
 ```
+
+`--all-fonts` is only there because this demo compares hands on one slide.
+
+Your own deck is just a fragment of `<section class="slide">` blocks — no `<html>`, no styles:
+
+```html
+<section class="slide">
+  <div class="stage">
+    <h2>One claim per slide</h2>
+    <p>Spend the <span data-sketch="highlight">highlight</span> once.</p>
+  </div>
+</section>
+```
+
+Fonts load from Google Fonts and jsDelivr, so the deck wants a network connection. For a fully offline file add `--embed-cjk` — it needs `pip install fonttools` and Node's `npm`, and read [FONTS.md](FONTS.md) before sharing the result.
 
 Open `deck.html`. `←` `→` to move, `f` fullscreen, `o` overview grid, `⌘P` to export PDF (one slide per landscape page).
 
